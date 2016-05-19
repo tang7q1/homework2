@@ -8,21 +8,22 @@ monster={
 
 };
 hero={
-	x:1,
-	y:1
+	x:2,
+	y:7
 };
 keynumber={};
 hp=100;
 power=0;
 protect=0;
-map = [[1,1,1,1,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,1,1,1,1],[],[],[],[]];
+//map = [[1,1,1,1,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,1,1,1,1],[],[],[],[]];
 $(document).ready(function () { 
-	var testt=map[level];
-	for(var i=0;i<5;i++)
-  		for(var j=0;j<5;j++)
+	var testt=map;
+	for(var i=0;i<10;i++)
+  		for(var j=0;j<10;j++)
 		
-	console.log(testt[i*5+j]);
+	console.log(testt[i][j]);
 drawmap();
+heromove();
 });
 //**********画地图********************
 /*var bgReady = false;
@@ -33,17 +34,28 @@ bgImage.onload = function () {
 bgImage.src = "images/background.png";*/
 
 var drawmap=function(){
-	 c=document.getElementById("mainmap");
+	c=document.getElementById("mainmap");
     cxt =c.getContext("2d"); 
 	var i,j;
-	var mmap=map[level];
-	var wallpic=document.getElementById("wallpic");
-  	for(i=0;i<5;i++)
-  		for(j=0;j<5;j++)
-  		{
-  			console.log(mmap[i*5+j]);
-  			if(mmap[i*5+j]==1)cxt.drawImage(wallpic, i*60,j*60,60,60);
+    	var floorpic=document.getElementById("floorpic");
+		var wallpic=document.getElementById("wallpic");
+		var door=document.getElementById("door");
+	for(i=0;i<10;i++)
+  		for(j=0;j<10;j++){
+  			cxt.drawImage(floorpic,i*60,j*60,60,60);
   		}
+	
+  	for(i=0;i<10;i++)
+  		for(j=0;j<10;j++)
+  		{
+  			//console.log(map[i][j]);
+  			if(map[i][j]==1)cxt.drawImage(wallpic, j*60,i*60,60,60);
+			if(map[i][j]==2)cxt.drawImage(door, j*60,i*60,60,60);
+			
+  		}     
+	//var mmap=map[level];
+	
+  
 
 }
 $(document).keydown(function(event){ 
@@ -53,8 +65,7 @@ else if (event.keyCode == 38){ goup();      } //上
 else if (event.keyCode == 40){ godown();    } //下
 }); 
 var goright=function(){
-	var mmap=map[level];
-	if(mmap[hero.y*5+hero.x+1]==0)
+	if(map[hero.y][hero.x+1]==0)
 		{
 			hero.x++;
 			heromove();
@@ -62,24 +73,21 @@ var goright=function(){
 
 	}
 var godown=function(){
-	var mmap=map[level];
-	if(mmap[(hero.y+1)*5+hero.x]==0)
+	if(map[hero.y+1][hero.x]==0)
 		{
 			hero.y++;
 			heromove();
 		}
 	}
 var goup=function(){
-	var mmap=map[level];
-	if(mmap[(hero.y-1)*5+hero.x]==0)
+	if(map[hero.y-1][hero.x]==0)
 		{
 			hero.y--;
 			heromove();
 		}
 	}
 var goleft=function(){
-	var mmap=map[level];
-	if(mmap[hero.y*5+hero.x-1]==0)
+	if(map[hero.y][hero.x-1]==0)
 		{
 			hero.x--;
 			heromove();
@@ -87,11 +95,31 @@ var goleft=function(){
 	}
 var heromove=function(){
 	cxt.clearRect(0,0,600,600);
-	 var heropic=new Image();
-	heropic.src="heropic.png"
-	drawmap(level);
-	//drawmosters();
+	drawmap();
+	 var heropic=document.getElementById("heropic");
+	
+	//drawmonsters();
 	//drawitems();
 	cxt.drawImage(heropic,hero.x*60,hero.y*60,60,60);
 
+} 
+var drawmonsters=function()
+{
+	var i,j;
+	var mmap=map[level];
+	var monsterpic=new Image();
+	monsterpic.src="monsterpic.png";
+  	for(i=0;i<10;i++)
+  		for(j=0;j<10;j++)
+  		{
+  
+  			if(mmap[i*5+j]==7)cxt.drawImage(monsterpic, i*60,j*60,60,60);
+  		}
+
+}
+var drawitems=function()
+{
+	var i,j;
+	var mmap=map[level];
+	
 }

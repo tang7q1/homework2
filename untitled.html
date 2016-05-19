@@ -1,18 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="style.css" rel="stylesheet">
 <script type="text/javascript" src="jquery.js" ></script>
+<script type="text/javascript" src="map.js"></script>
 <script type="text/javascript" src="untitled.js" ></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 	<title></title>
 </head>
-<body>
-<div  id="map">
-<canvas id="leftmap" width="200" height="100"></canvas>
-<canvas id="mainmap" width="600" height="600"></canvas>
-<canvas id="rightmap" width="200" height="100"></canvas>
+<body><p><div id="head">Maybe a game?</div></p>
+
+<div id="map">
+<p><canvas id="leftmap" width="200" height="600">
+	Your browser does not support the canvas element.
+</canvas></p>
+
+<p><canvas id="mainmap" width="600" height="600">
+	Your browser does not support the canvas element.
+</canvas></p>
+
+<p><canvas id="rightmap" width="200" height="600">
+	Your browser does not support the canvas element.
+</canvas></p>
+</div>
+<img src="floorpic.png" id="floorpic" style="display:none;">
+<img src="door.jpg" id="door" style="display:none;"> 
 <img src="wallpic.png" id="wallpic" style="display:none;"> 
 <img src="heropic.png" id="heropic" style="display:none;">
+<p><div id="foot">2015.5.18</div></p>
 </body>
 </html>
