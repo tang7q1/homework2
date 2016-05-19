@@ -1,5 +1,7 @@
 //********定义区******************
-var level=1;
+
+$(document).ready(function () { 
+var level=0;
 var monster={
 	x:[],
 	y:[]
@@ -8,17 +10,25 @@ var monster={
 var hero={
 	pic:null,
 	x:1,
-	y:5
+	y:1
 };
 var keynumber={};
 var hp=100;
 var power=0;
 var protect=0;
 var App = {
-    canvas : null,
+    c : null,
     cxt : null
 };
-
+var map = [[1,1,1,1,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,1,1,1,1],[],[],[],[]];
+	App.c=document.getElementById("mainmap");
+	App.cxt =App.c.getContext("2d"); 
+	drawmap();
+	var testt=map[level];
+	for(var i=0;i<5;i++)
+  		for(var j=0;j<5;j++)
+		
+	console.log(testt[i*5+j]);});
 //**********画地图********************
 /*var bgReady = false;
 var bgImage = new Image();
@@ -26,16 +36,15 @@ bgImage.onload = function () {
 	bgReady = true;
 };
 bgImage.src = "images/background.png";*/
-var map = [[1,1,1,1,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,1,1,1,1],[],[],[],[]];
-var drawmap=function(){
+
+var drawmap=function(level){
+	var i,j;
 	var mmap=map[level];
-	var App.canvas=document.getElementById('canvas1');
-	var App.cxt=c.getContext("2d");
 	var wallpic=document.getElementById("wallpic");
-  	for(var i=0;i<5;i++)
-  		for(var j=0;j<5;j++)
+  	for(i=0;i<5;i++)
+  		for(j=0;j<5;j++)
   		{
-  			if(mmap[i][j]==1)App.cxt.drawImage(wallpic, i*60,j*60,60,60);
+  			if(mmap[i*5+j]==1)App.cxt.drawImage(wallpic, i*60,j*60,60,60);
   		}
 
 }
@@ -52,6 +61,8 @@ var goright=function(){
 			hero.x++;
 			heromove();
 		}
+
+	}
 var godown=function(){
 	var mmap=map[level];
 	if(mmap[hero.x][hero.y+1]==0)
@@ -59,7 +70,7 @@ var godown=function(){
 			hero.y++;
 			heromove();
 		}
-
+	}
 var goup=function(){
 	var mmap=map[level];
 	if(mmap[hero.x][hero.y-1]==0)
@@ -67,6 +78,7 @@ var goup=function(){
 			hero.y--;
 			heromove();
 		}
+	}
 var goleft=function(){
 	var mmap=map[level];
 	if(mmap[hero.x-1][hero.y]==0)
@@ -74,10 +86,11 @@ var goleft=function(){
 			hero.x--;
 			heromove();
 		}
+	}
 var heromove=function(){
 	App.cxt.clearRect(0,0,600,600);
 	hero.pic=getElementById("heropic");
-	drawmap();
+	drawmap(level);
 	//drawmosters();
 	//drawitems();
 	App.cxt.drawImage(heropic,hero.x*60,hero.y*60,60,60);
