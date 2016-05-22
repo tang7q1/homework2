@@ -8,18 +8,73 @@
 }
 #leftmap{
 	position:absolute;
+	width:200px;
+	height:600px;
 	left:10%;
 	top:10%;
-	
 	border:2px solid #666;
+	background-image:url(lrmap.jpg);
+	background-size:cover;
 }
+.leftbox{
+	box-shadow:5px 5px 5px #333;
+}
+
+#showlevel{
+	text-align:center;
+	width:160px;
+	height:100px;
+	margin-top:50px;
+	margin-left:20px;
+	background-color:rgba(0,0,0,0.5);
+	font-family:"钟齐流江硬笔草体";
+	color:#FFF;
+	font-size:28px;
+	line-height:100px;
+}
+
+#showproperty{
+	text-align:center;
+	width:160px;
+	height:200px;
+	margin-top:50px;
+	margin-left:20px;
+	
+	padding-top:10px;
+	background-color:rgba(0,0,0,0.5);
+}
+
+#showkey{
+	text-align:center;
+	width:160px;
+	height:100px;
+	margin-top:50px;
+	margin-left:20px;
+	background-color:rgba(0,0,0,0.5);
+}
+
+.prop{
+	text-align:left;
+	font-family:"方正启体简体";
+	background-color:rgba(256,256,256,0.5);
+	width:130px;
+	height:30px;
+	margin-top:12.5px;
+	margin-left:10px;
+	border:1px #CCC solid;
+	border-radius:10px;
+	line-height:30px;
+}	
 
 #rightmap{
 	position:absolute;
 	left:1000px;
 	top:10%;
-	
+	width:200px;
+	height:600px;
 	border:2px solid #666;
+	background-image:url(lrmap.jpg);
+	background-size:cover;
 }
 
 #mainmap{
