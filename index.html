@@ -11,29 +11,40 @@
 	<title></title>
 </head>
 <body>
-
+<div id="nextlevel">
+<canvas>
+</canvas>
+<p>
+<input type="button" class="anniu" value="下一关" onClick="levelnext()">
+<input type="button" class="anniu" value="存档">
+<input type="button" class="anniu" value="退出">
+</p>
+</div>
+<div id="pause">
+</div>
 
 <p><div id="head">Maybe a game?</div></p>
 
 <div id="map">
-
+</div>
 
 <p><div id="leftmap">
-<div id="showlevel" class="leftbox">第一关</div>
-<div id="showproperty" class="leftbox">
-<div id="hp" class="prop">生命值</div>
-<div id="power" class="prop">攻击力</div>
-<div id="protect" class="prop">防御力</div>
-<div id="money" class="prop">财富值</div>
 
+<div id="showlevel" class="leftbox">第  1  关</div>
+
+<div id="showproperty" class="leftbox">
+	<div id="hp" class="prop">生命值~~~~ 100</div>
+	<div id="power" class="prop">攻击力~~~~ 10</div>
+	<div id="protect" class="prop">防御力~~~~ 10</div>
+	<div id="money" class="prop">财富值~~~~ 10</div>
 </div>
 <div id="showkey" class="leftbox">
-<img src="key1.png" id="key1" width="50px" height="50px"><p>
-<img src="key2.png" id="key2" width="50px" height="50px"></p>
-
+	<img src="key1.png" id="key1" width="30px" height="30px" class="key">
+	<div id="keybg1">0</div>
+	<p><img src="key2.png" id="key2" width="30px" height="30px" class="key">
+		<div id="keybg2">0</div></p>
 </div>
 	
-    
 </div></p>
 
 <p><canvas id="mainmap" width="600" height="600">
@@ -41,13 +52,28 @@
 </canvas></p>
 
 <p><div id="rightmap">
+<div id="second" class="leftbox">双人模式</div>
+
+<div id="monsterproperty" class="leftbox">
+	<div id="hp3" class="prop">敌人生命值~~~</div>
+</div>
+
+<div id="showproperty" class="leftbox">
+	<div id="hp2" class="prop">生命值~~~~ 0</div>
+	<div id="power2" class="prop">攻击力~~~~ 0</div>
+	<div id="protect2" class="prop">防御力~~~~ 0</div>
+	<div id="money2" class="prop">财富值~~~~ 0</div>
+</div>
+
 </div></p>
 
 
-</div>
+
+
 <img src="floorpic.jpg" id="floorpic" style="display:none;"><!--0-->
-<img src="door.jpg" id="doorclose" style="display:none;"> <!--1-->
-<img src="door2.jpg" id="dooropen" style="display:none;"> <!--2-->
+<img src="door1.jpg" id="door1" style="display:none;"> <!--1-->
+<img src="door2.jpg" id="door2" style="display:none;"> <!--2-->
+<img src="dooropen.jpg" id="dooropen" style="display:none;">
 <img src="wallpic.png" id="wallpic" style="display:none;"> <!--3-->
 <img src="heropic1.png" id="heropic1" style="display:none;">
 <img src="heropic2.png" id="heropic2" style="display:none;">
@@ -56,6 +82,8 @@
 <img src="monster1pic.png" id="monster1pic" style="display:none;">
 <img src="key1.png" id="key1" style="display:none;">
 <img src="key2.png" id="key2" style="display:none;">
+<img src="flag.png" id="flag" style="display:none;">
+<img src="death.png" id="tomb" style="display:none;">
 
 </body>
 </html>
