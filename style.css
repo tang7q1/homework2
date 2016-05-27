@@ -178,3 +178,13 @@ input[type="button"] {
 	z-index:5555; 
 
 }
+#gameover{
+	position:absolute;
+	top:15%;
+	left:400px;	
+	width:400px;
+	height:400px;
+	visibility:hidden;
+	z-index:5556; 
+
+}
