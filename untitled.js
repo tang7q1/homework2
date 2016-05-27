@@ -7,20 +7,37 @@ monster={
 };
 hero={
 	x:2,
-	y:8
+	y:8,
+	hp:100,
+	power:0,
+	protect:0,
+	money:0
+
 };
+herotwo={
+	x:8,
+	y:2,
+	hp:100,
+	power:0,
+	protect:0,
+	money:0
+}
 key1num=0;
 key2num=0;
-hp=100;
-hp2=100;
-var hp3;
+var hpm;
 power=0;
 protect=0;
 money=0;
-
-
-//**********画地图********************
+twoplay=0;
+playtwo=0;
+twoturnstatus=1;
+turnstatus=1;
+//**********代码区********************
 changelevel();
+var twoplayers=function()
+{
+twoplay=1;
+}
 var drawmap=function(){
 	c=document.getElementById("mainmap");
     cxt = c.getContext("2d"); 
@@ -56,10 +73,16 @@ var drawmap=function(){
 	}
 }
 $(document).keydown(function(event){ 
-if(event.keyCode == 37){event.preventDefault();	goleft();}//左
-else if (event.keyCode == 39){event.preventDefault();	goright();}//右 
-else if (event.keyCode == 38){event.preventDefault();	goup();}//上
-else if (event.keyCode == 40){event.preventDefault();	godown();}//下
+if(event.keyCode == 37){event.preventDefault();	playtwo=1;goleft();}//左
+else if (event.keyCode == 39){event.preventDefault();	playtwo=1;goright();}//右 
+else if (event.keyCode == 38){event.preventDefault();	playtwo=1;goup();}//上
+else if (event.keyCode == 40){event.preventDefault();	playtwo=1;godown();}//下
+}); 
+$(document).keydown(function(event){ 
+if(event.keyCode == 65){event.preventDefault();	playtwo=2;goleft();}//左
+else if (event.keyCode == 68){event.preventDefault();	playtwo=2;goright();}//右 
+else if (event.keyCode == 87){event.preventDefault();	playtwo=2;goup();}//上
+else if (event.keyCode == 83){event.preventDefault();	playtwo=2;godown();}//下
 }); 
 
 function changekey(){
@@ -68,31 +91,31 @@ function changekey(){
 }
 
 function changehp(){
-	document.getElementById("hp").innerHTML="生命值~~~~ "+hp;
-	document.getElementById("hp2").innerHTML="生命值~~~~ "+hp2;
-	document.getElementById("hp3").innerHTML="敌人生命值~~~ "+hp3;
+	document.getElementById("hp").innerHTML="生命值~~~~ "+hero.hp;
+	document.getElementById("hp2").innerHTML="生命值~~~~ "+herotwo.hp;
+	document.getElementById("hp3").innerHTML="敌人生命值~~~ "+mph;
 }
 
 function changepower(){
-	document.getElementById("power").innerHTML="能力值~~~~ "+power;
-	document.getElementById("power2").innerHTML="能力值~~~~ "+power2;
+	document.getElementById("power").innerHTML="能力值~~~~ "+hero.power;
+	document.getElementById("power2").innerHTML="能力值~~~~ "+herotwo.power;
 }
 
 function changeprotect(){
-	document.getElementById("protect").innerHTML="防御力~~~~ "+protect;
-	document.getElementById("protect2").innerHTML="防御力~~~~ "+protect2;
+	document.getElementById("protect").innerHTML="防御力~~~~ "+hero.protect;
+	document.getElementById("protect2").innerHTML="防御力~~~~ "+herotwo.protect;
 }
 
 function changemoney(){
-	document.getElementById("money").innerHTML="财富值~~~~ "+money;
-	document.getElementById("money2").innerHTML="财富值~~~~ "+money2;
+	document.getElementById("money").innerHTML="财富值~~~~ "+hero.money;
+	document.getElementById("money2").innerHTML="财富值~~~~ "+herotwo.money;
 }
 
-var pickkey=function()
+var pickkey=function(y,x)
 {
-	if(map[hero.y][hero.x]==8)key1num++;
-	else if(map[hero.y][hero.x]==9)key2num++;
-	map[hero.y][hero.x]=0;
+	if(map[y][x]==8)key1num++;
+	else if(map[y][x]==9)key2num++;
+	map[y][x]=0;
 	changekey();
 	heromove();
 }
@@ -113,15 +136,35 @@ var operation=function(y,x)
 {
 	if(map[y][x]==0)
 	{
-		hero.x=x;
-		hero.y=y;
+		
+		
+		if(playtwo==1)
+		{
+			hero.x=x;
+			hero.y=y;
+		}
+		if(playtwo==2)
+		{
+			herotwo.x=x;
+			herotwo.y=y;
+		}
 		heromove();
 	}
 	else if(map[y][x]==8||map[y][x]==9)
 	{
-		hero.x=x;
-		hero.y=y;
-		pickkey();
+		if(playtwo==1)
+		{
+			hero.x=x;
+			hero.y=y;
+			pickkey(y,x);
+		}
+		if(playtwo==2)
+		{
+			herotwo.x=x;
+			herotwo.y=y;
+			pickkey(y,x);
+			
+		}
 	}	
 	else if((map[y][x]==1&&key1num!=0)||(map[y][x]==2&&key2num!=0))
 	{
@@ -135,20 +178,21 @@ var operation=function(y,x)
 	}
 	else if(map[y][x]==11||map[y][x]==12)
 	{
-		var mhp;
 		if(map[y][x]==11)mph=20;
 		else if(map[y][x]==12)mph=25;
 		var attacks;
-		if(5+Math.floor(power*0.5)<=20)
+		if(playtwo==1)
 		{
-			attacks=Math.ceil(mph/(5+Math.floor(power*0.5)));
-			hp -= 5-Math.floor(protect*0.5)*attacks;
+		if(5+Math.floor(hero.power*0.5)<=20)
+		{
+			attacks=Math.ceil(mph/(5+Math.floor(hero.power*0.5)));
+			hero.hp -= 5-Math.floor(hero.protect*0.5)*attacks;
 		}
 		else
-			hp -= 20-Math.floor(protect*0.5);
+			hero.hp -= 20-Math.floor(hero.protect*0.5);
 			
 		changehp();	
-		if(hp<=0)
+		if(hero.hp<=0)
 		{
 			gameover();
 		}
@@ -160,16 +204,49 @@ var operation=function(y,x)
 			heromove();
 			time=setTimeout("opendoor();heromove()",800);
 		}
+		}
+		if(playtwo==2)
+		{
+		if(5+Math.floor(herotwo.power*0.5)<=20)
+		{
+			attacks=Math.ceil(mph/(5+Math.floor(herotwo.power*0.5)));
+			herotwo.hp -= 5-Math.floor(herotwo.protect*0.5)*attacks;
+		}
+		else
+			herotwo.hp -= 20-Math.floor(herotwo.protect*0.5);
+			
+		changehp();	
+		if(herotwo.hp<=0)
+		{
+			gameover();
+		}
+		else
+		{
+			py=y;
+			px=x;
+			map[y][x]=13;//dead monster
+			heromove();
+			time=setTimeout("opendoor();heromove()",800);
+		}
+		}
 	}
 	else if(map[y][x]==10)
 	{
-		//level++;
-		hero.x=x;
-		hero.y=y;
+		if(playtwo==1)
+		{
+			hero.x=x;
+			hero.y=y;
+		}
+		if(playtwo==2)
+		{
+			herotwo.x=x;
+			herotwo.y=y;
+		}
 		heromove();
-		//document.getElementById("showlevel").innerHTML="第 "+level+" 关";
-		//changelevel();
-		showbox();
+		if(twoplay==1){
+		if(map[hero.y][hero.x]==10&&map[herotwo.x][herotwo.y]==10)showbox();}
+		if(twoplay==0){
+		if(map[hero.y][hero.x]==10)showbox();}
 	}
 }
 var showbox=function(){
@@ -184,28 +261,59 @@ var levelnext=function()
 	heromove();
 }
 var goleft=function(){
-	turnstatus=3;
-	heromove();
-	operation(hero.y,hero.x-1);
 	
+	if(playtwo==1)
+	{
+	turnstatus=3;	
+	operation(hero.y,hero.x-1);
+	}
+	if(playtwo==2)
+	{
+		twoturnstatus=3;
+		operation(herotwo.y,herotwo.x-1);
+	}
+	heromove();
 }
 var goright=function(){
-	turnstatus=4;
-	heromove();
+	if(playtwo==1)
+	{
+		turnstatus=4;
 	operation(hero.y,hero.x+1);
+	}
+	if(playtwo==2)
+	{
+		twoturnstatus=4;
+		operation(herotwo.y,herotwo.x+1);
+	}
+	heromove();
 
 }
 var goup=function(){
-	turnstatus=2;
-	heromove();
+	if(playtwo==1)
+	{
+		turnstatus=2;
 	operation(hero.y-1,hero.x);
+	}
+	if(playtwo==2)
+	{
+		twoturnstatus=2;
+		operation(herotwo.y-1,herotwo.x);
+	}
+	heromove();
 }
 var godown=function(){
-	turnstatus=1;
-	heromove();
+	if(playtwo==1)
+	{	
+		turnstatus=1;
 	operation(hero.y+1,hero.x);
+	}
+	if(playtwo==2)
+	{
+		twoturnstatus=1;
+		operation(herotwo.y+1,herotwo.x);
+	}
+	heromove();
 }
-
 var heromove=function(){
 	cxt.clearRect(0,0,600,600);
 	drawmap();
@@ -217,6 +325,17 @@ var heromove=function(){
 	if(turnstatus==2)cxt.drawImage(heropic2,hero.x*60,hero.y*60,60,60);
 	if(turnstatus==3)cxt.drawImage(heropic3,hero.x*60,hero.y*60,60,60);
 	if(turnstatus==4)cxt.drawImage(heropic4,hero.x*60,hero.y*60,60,60);
+	if(twoplay==1)
+	{
+		var heropic21=document.getElementById("heropic21");
+	var heropic22=document.getElementById("heropic22");
+	var heropic23=document.getElementById("heropic23");
+	var heropic24=document.getElementById("heropic24");
+	if(twoturnstatus==1)cxt.drawImage(heropic21,herotwo.x*60,herotwo.y*60,60,60);
+	if(twoturnstatus==2)cxt.drawImage(heropic22,herotwo.x*60,herotwo.y*60,60,60);
+	if(twoturnstatus==3)cxt.drawImage(heropic23,herotwo.x*60,herotwo.y*60,60,60);
+	if(twoturnstatus==4)cxt.drawImage(heropic24,herotwo.x*60,herotwo.y*60,60,60);
+	}
 } 
 $(document).ready(function () { 
 	drawmap();
