@@ -1,36 +1,78 @@
-
 <!DOCTYPE html>
 <html>
-<head>
-<link href="style.css" rel="stylesheet">
-<script type="text/javascript" src="jquery.js" ></script>
-<script type="text/javascript" src="map.js"></script>
-<script type="text/javascript" src="untitled.js" ></script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-	<title></title>
-</head>
+	<head>
+		<link href="style.css" rel="stylesheet">
+		<script type="text/javascript" src="jquery.js" ></script>
+		<script type="text/javascript" src="map.js"></script>
+		<script type="text/javascript" src="untitled.js" ></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>这是一个游戏【正经脸】</title>
+	</head>
 <body>
-<div id="gameover">
-<canvas></canvas>
-<p><input type="button" class="anniu" value="重新开始"></p>
+    <audio controls="controls" autoplay="autoplay" style="display:none">
+  		<source src="bgs.mp3" type="audio/mp3" />
+                    Your browser does not support the audio element.
+	</audio>	
+	<audio id="beep-three" controls preload="auto" style="display:none">
+		<source src="click1.wav" controls></source>
+			Your browser isn't invited for super fun time.
+	</audio>
+		
+    
+    
+<div id="choice" style="display:none">
+	<font style="position:relative;top:50px;left:220px;font-size:150px;font-family:'書體坊顏體㊣';color:#CCC">迷 踪</font>
+  <p><font style="position:relative;left:100px;font-size:150px;font-family:'書體坊顏體㊣';color:#CCC">角色选择</font></p>
+    <font style="position:relative;left:250px;font-size:80px;font-family:'書體坊顏體㊣';color:#CCC">进入游戏</font>
+	<img src="page1.png" id="p1" >
+    <img src="page2.png" id="p2" >
+	<img src="heropic1.png" id="ch1" class="ch">
+    <img src="heropic2.png" id="ch2" class="ch">
+    <img src="heropic3.png" id="ch3" class="ch">
+    <img src="heropic4.png" id="ch4" class="ch">
+    <input type="button" id="sure" class="anniu" value="确定" onClick="hidechoice()">
+	
 </div>
-<div id="nextlevel">
-<canvas>
-</canvas>
-<p>
-<input type="button" class="anniu" value="下一关" onClick="levelnext()">
-<input type="button" class="anniu" value="存档">
-<input type="button" class="anniu" value="退出">
-</p>
+
+<div id="start">
+	<div id="instruction" style="display:none;scrollbar-face-color: #DB52BC">
+	<p>这是一个游戏【正经脸】，方法嘛，上下左右英雄一，wasd英雄二，打怪刷级，不说了开始吧。</p>
+    我觉得还需要一些故事背景。比如。。<p>经过n次符文战争，光盾家族分裂，一脉成了诺克
+    斯的主人，好战嗜血。一脉成了德玛西亚的主人，爱好和平。传承下来慢慢两边成为世仇。祖安诺			克萨斯同盟，德邦班德尔同盟。</p>
+诺克萨斯雇佣西维尔的佣兵团几乎毁灭了艾欧尼亚，天启者组织反抗军对抗诺克萨斯，均衡教派也呆不住跳出来了，结果西维尔觉得影响不好撒手不干了，诺克萨斯自己又拿不下来舍不得放手，很多诺克萨斯的敌人都是那时候惹出来的，像隐居的刀妹，剑圣，索拉卡，瑞文(这个都知道是被逼反的)等等。德玛西亚唇亡齿寒，就对诺克萨斯动手了。常年的战争使得魔法能量泛滥，几乎毁灭了符文大陆。造成的最恶劣的后果是恕瑞玛沙漠和扭曲丛林。两方僵持不下的时候，由某个大能量的人物协调(应该是流浪那个级别的)，然后大家友好协商，共同约定成立战争学院来解决矛盾。
+弗雷尔卓德冰霜女王在潜伏数百年休养生息后再次出现，代表弗雷尔卓德三脉首领的继承人们为了王位再次掀起纷争。<p>
+哈哈哈哈好吧上面我copy的LOL的背景。</p>
+<p>开始征程吧，勇士。</p>
+    <input type="button" id="sure2" class="anniu" value="确定" onClick="re()">
+    </div>
+	<font id="title" style="position:relative;top:50px;left:220px;font-size:150px;font-family:'書體坊顏體㊣'">迷 踪</font>
+	<div id="startbox1" class="startbox">单人模式</div>
+    <div id="startbox2" class="startbox">双人模式</div>
+    <div id="startbox3" class="startbox">读取进度</div>
+    <div id="startbox4" class="startbox">游戏说明</div>
+    <input type="button" class="anniu" value="读取" onClick="read()">
+</div>
+<script>var beepThree = $("#beep-three")[0];
+		$(".startbox").mouseenter(function(){
+			beepThree.pause();
+			beepThree.play();
+		});</script>
+<div id="nextlevel" style="display:none">
+    <canvas id="levelup" width="1600" height="600" style="width:800px;height:300px;">Your browser does not support the canvas element.</canvas>
+	<p id="buttonp" style="text-align:center">
+	<input type="button" class="anniu" value="下一关" onClick="levelnext()">
+	<input type="button" class="anniu" value="存档" >
+	<input type="button" class="anniu" value="退出">
+	</p>
 </div>
 <div id="pause">
 </div>
 
+
+
 <p><div id="head">Maybe a game?</div></p>
 
 <div id="map">
-</div>
 
 <p><div id="leftmap">
 
@@ -38,9 +80,9 @@
 
 <div id="showproperty" class="leftbox">
 	<div id="hp" class="prop">生命值~~~~ 100</div>
-	<div id="power" class="prop">攻击力~~~~ 0</div>
-	<div id="protect" class="prop">防御力~~~~ 0</div>
-	<div id="money" class="prop">财富值~~~~ 0</div>
+	<div id="power" class="prop">攻击力~~~~ 10</div>
+	<div id="protect" class="prop">防御力~~~~ 10</div>
+	<div id="money" class="prop">财富值~~~~ 10</div>
 </div>
 <div id="showkey" class="leftbox">
 	<img src="key1.png" id="key1" width="30px" height="30px" class="key">
@@ -63,16 +105,16 @@
 </div>
 
 <div id="showproperty" class="leftbox">
-	<div id="hp2" class="prop">生命值~~~~ 100</div>
+	<div id="hp2" class="prop">生命值~~~~ 0</div>
 	<div id="power2" class="prop">攻击力~~~~ 0</div>
 	<div id="protect2" class="prop">防御力~~~~ 0</div>
 	<div id="money2" class="prop">财富值~~~~ 0</div>
+	<input type="button" class="anniu" value="存档" onClick="save()">
+	<input type="button" class="anniu" value="读取" onClick="read()">
 </div>
 
 </div></p>
-
-
-
+</div>
 
 <img src="floorpic.jpg" id="floorpic" style="display:none;"><!--0-->
 <img src="door1.jpg" id="door1" style="display:none;"> <!--1-->
@@ -92,6 +134,8 @@
 <img src="key2.png" id="key2" style="display:none;">
 <img src="flag.png" id="flag" style="display:none;">
 <img src="death.png" id="tomb" style="display:none;">
+<img src="up1.png" id="up1" style="display:none;">
+<img src="up2.png" id="up2" style="display:none;">
 
 </body>
 </html>

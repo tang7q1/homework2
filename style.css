@@ -42,7 +42,7 @@
 	margin-top:50px;
 	margin-left:20px;
 	background-color:rgba(0,0,0,0.5);
-	font-family:"钟齐流江硬笔草体";
+	font-family:"钟齐流江硬笔草体","微软雅黑";
 	color:#FFF;
 	font-size:28px;
 	line-height:100px;
@@ -134,8 +134,9 @@
 	background-image:url(lrmap.jpg);
 	background-size:cover;
 }
+
 #mainmap{
-	position:fixed;
+	position:absolute;
 	left:370px;
 	top:10%;
 	
@@ -157,34 +158,153 @@
 	height:20px;
 	top:0;
 }
+
 input[type="button"] {
-    background: #999;
+    background: #993333;
 	border-radius: 200px;
     border: none;
     padding: 5px 5px;
     color: white;
-    font-size: 12px;
-	height:60px;
-	width:60px;
+    font-size: 20px;
+	height:70px;
+	width:70px;
 	text-align:center;
+	font-family:"方正启体简体";
+	line-height:60px;
+	cursor:pointer;
 }
 #nextlevel{
 	position:absolute;
 	top:15%;
-	left:400px;	
-	width:400px;
-	height:400px;
-	visibility:hidden;
+	left:270px;	
+	width:800px;
+	height:450px;
+	/*border:2px solid #0F0;
+	border-radius:20px;*/
 	z-index:5555; 
-
 }
-#gameover{
+
+#levelup{
+	position:absolute;
+	/*border:2px solid #00F;
+	border-radius:20px;*/
+}
+
+#buttonp{
+	position:absolute;
+	top:70%;
+	left:270px;	
+	text-align:center;
+}
+
+#choice{
 	position:absolute;
 	top:15%;
-	left:400px;	
-	width:400px;
-	height:400px;
-	visibility:hidden;
-	z-index:5556; 
+	left:270px;	
+	width:800px;
+	height:450px;
+	z-index:5555;
+	/*background-image:url(15.jpg);*/
+	background-color:rgba(256,256,256,0.5);
+	background-size:cover;
+	border-radius:20px;
+}
 
+#p1{
+	position:absolute;
+	top:35%;
+	left:35px;
+	width:100px;
+	height:100px;
+	z-index:5555;
+}
+
+#p2{
+	position:absolute;
+	top:35%;
+	left:680px;	
+	width:100px;
+	height:100px;
+	z-index:5555;
+}
+
+#sure{
+	position:absolute;
+	top:85%;
+	left:350px;	
+	width:150px;
+	height:30px;
+	z-index:5555;
+	line-height:27px;
+	cursor:pointer;
+}
+
+.ch{
+	position:absolute;
+}
+
+
+
+#start{
+	position:absolute;
+	top:15%;
+	left:270px;	
+	width:800px;
+	height:450px;
+	z-index:5555;
+	background-image:url(start.jpg);
+	background-size:cover;
+	border-radius:20px;
+}
+.startbox{
+	position:relative;
+	text-align:center;
+	width:120px;
+	height:40px;
+	left:340px;
+	line-height:40px;
+	font-size:30px;
+	font-family:"書體坊顏體㊣";
+	cursor:pointer;
+}
+#startbox1{
+	top:85px;
+}
+
+#startbox2{
+	top:95px;
+}
+
+#startbox3{
+	top:105px;
+}
+
+#startbox4{
+	top:115px;
+}
+
+#instruction{
+	background-color:rgba(0,0,0,0.7);
+	border-radius:20px;
+	height:440px;
+	width:600px;
+	position:absolute;
+	top:5px;
+	left:100px;
+	font-family:"方正启体简体";
+	font-size:20px;
+	color:#FFF;
+	z-index:6666;
+	overflow:auto;
+}
+
+#sure2{
+	position:fixed;
+	top:470px;
+	left:740px;	
+	width:150px;
+	height:30px;
+	z-index:6666;
+	line-height:27px;
+	cursor:pointer;
 }

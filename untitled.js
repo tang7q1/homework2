@@ -23,8 +23,71 @@ twoplay=1;
 playtwo=0;
 twoturnstatus=1;
 turnstatus=1;
+flag=0;
+//＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊存储区＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+savestatus={
+	level:1,
+	key1num:0,
+	key2num:0,
+	twoplay:1,
+	playtwo:0,
+	twoturnstatus:1,
+	turnstatus:1,
+
+}
+savehero={
+	x:2,
+	y:8,
+	hp:100,
+	power:0,
+	protect:0,
+	money:0
+
+};
+saveherotwo={
+	x:8,
+	y:2,
+	hp:100,
+	power:0,
+	protect:0,
+	money:0
+}
+savemap=new Array();
+var save=function()
+{
+	localStorage["savehero"]=JSON.stringify(hero);
+	localStorage["saveherotwo"]=JSON.stringify(herotwo);
+	localStorage["savestatus.level"]=level;
+	localStorage["savestatus.key1num"]=key1num;
+	localStorage["savestatus.twoplay"]=twoplay;
+	localStorage["savestatus.playtwo"]=playtwo;
+	localStorage["savestatus.twoturnstatus"]=twoturnstatus;
+	localStorage["savestatus.turnstatus"]=turnstatus;
+	localStorage["savestatus.key2num"]=key2num;
+	localStorage["savemap"]=JSON.stringify(map);
+	localStorage.flag=1;
+	//localStorage[""]=
+}
+var read=function()
+{
+	//=localStorage.getItem("");
+	map=JSON.parse(localStorage['savemap']);
+	hero=JSON.parse(localStorage['savehero']);
+	herotwo=JSON.parse(localStorage['saveherotwo']);
+	twoplay=localStorage.getItem("savestatus.twoplay");
+	playtwo=localStorage.getItem("savestatus.playtwo");
+	level=localStorage.getItem("savestatus.level");
+	key2num=localStorage.getItem("savestatus.key2num");
+	key1num=localStorage.getItem("savestatus.key1num");
+	turnstatus=localStorage.getItem("savestatus.turnstatus");
+	twoturnstatus=localStorage.getItem("savestatus.twoturnstatus");
+	heromove();
+	changeitems();
+	changekey();
+	changehp();
+}
 //**********代码区********************
-changelevel();
+if(flag==0)changelevel();
 var twoplayers=function()
 {
 twoplay=1;
@@ -73,25 +136,6 @@ var drawmap=function(){
 			if(map[i][j]==13)cxt.drawImage(tomb, j*60,i*60,60,60);
 			if(map[i][j]==15)cxt.drawImage(dooropen, j*60,i*60,60,60);
 	}
-}
-function changekey(){
-	document.getElementById("keybg1").innerHTML=key1num;
-	document.getElementById("keybg2").innerHTML=key2num;
-}
-
-function changehp(){
-	document.getElementById("hp").innerHTML="生命值~~~~ "+hero.hp;
-	document.getElementById("hp2").innerHTML="生命值~~~~ "+herotwo.hp;
-	document.getElementById("hp3").innerHTML="敌人生命值~~~ "+mph;
-}
-
-function changeitems(){
-	document.getElementById("power").innerHTML="能力值~~~~ "+hero.power;
-	document.getElementById("power2").innerHTML="能力值~~~~ "+herotwo.power;
-	document.getElementById("protect").innerHTML="防御力~~~~ "+hero.protect;
-	document.getElementById("protect2").innerHTML="防御力~~~~ "+herotwo.protect;
-	document.getElementById("money").innerHTML="财富值~~~~ "+hero.money;
-	document.getElementById("money2").innerHTML="财富值~~~~ "+herotwo.money;
 }
 
 var pickkey=function(y,x){
@@ -227,11 +271,149 @@ var operation=function(y,x)
 		if(map[hero.y][hero.x]==10)showbox();}
 	}//过关
 }
+function changekey(){
+	document.getElementById("keybg1").innerHTML=key1num;
+	document.getElementById("keybg2").innerHTML=key2num;
+}
+
+function changehp(){
+	document.getElementById("hp").innerHTML="生命值~~~~ "+hero.hp;
+	document.getElementById("hp2").innerHTML="生命值~~~~ "+herotwo.hp;
+	document.getElementById("hp3").innerHTML="敌人生命值~~~ "+mph;
+}
+
+function changeitems(){
+	document.getElementById("power").innerHTML="能力值~~~~ "+hero.power;
+	document.getElementById("power2").innerHTML="能力值~~~~ "+herotwo.power;
+	document.getElementById("protect").innerHTML="防御力~~~~ "+hero.protect;
+	document.getElementById("protect2").innerHTML="防御力~~~~ "+herotwo.protect;
+	document.getElementById("money").innerHTML="财富值~~~~ "+hero.money;
+	document.getElementById("money2").innerHTML="财富值~~~~ "+herotwo.money;
+}
+
 function gameover(){
 document.getElementById("gameover").style.visibility="visible";
 }
 var showbox=function(){
-	document.getElementById("nextlevel").style.visibility="visible";
+	document.getElementById("nextlevel").style.display = "block";
+	var up1=document.getElementById("up1");
+	var c1 = document.getElementById("levelup");
+	var cxt1 = c1.getContext("2d");
+	cxt1.clearRect(0,0,1600,600);
+	
+	cxt1.fillStyle="rgba(96,176,249,0.5)";//blue
+	cxt1.strokeStyle="rgba(96,176,249,0.5)";
+	cxt1.linewidth=1;
+	cxt1.fillRect(10,160,460,400);
+	cxt1.fillRect(1000,340,500,200);
+	
+	cxt1.fillStyle="rgba(251,132,135,0.5)";//red
+	cxt1.strokeStyle="rgba(251,132,135,0.5)";
+	cxt1.linewidth=1;
+	cxt1.fillRect(200,360,300,300);
+	cxt1.fillRect(960,140,400,300);
+	
+	cxt1.fillStyle="rgba(225,254,112,0.5)";//red
+	cxt1.linewidth=1;
+	cxt1.fillRect(450,0,600,600);
+	
+	cxt1.drawImage(up1,550,0,400,600);
+	
+	cxt1.font="bold 300px 書體坊顏體㊣";
+	cxt1.textAlign = "center";
+	cxt1.textBaseline = "middle";
+	cxt1.fillStyle = "#993333";
+	cxt1.fillText('通',220,300);
+	cxt1.fillText('关',1250,300);
+	
+	
+	cxt1.font="bold 100px KyoMadoka";
+	cxt1.textAlign = "center";
+	cxt1.textBaseline = "middle";
+	cxt1.fillStyle = "#993333";
+	cxt1.fillText('おめでとう',250,500);
+	cxt1.fillText('パス',1250,500);
+	time=setTimeout("up()",500);
+}
+var up=function(){
+	var up2=document.getElementById("up2");
+	var c1 = document.getElementById("levelup");
+	var cxt1 = c1.getContext("2d");
+	cxt1.clearRect(0,0,1600,600);
+	
+	cxt1.fillStyle="rgba(96,176,249,0.5)";//blue
+	cxt1.strokeStyle="rgba(96,176,249,0.5)";
+	cxt1.linewidth=1;
+	cxt1.fillRect(10,160,460,400);
+	cxt1.fillRect(1000,340,500,200);
+	
+	cxt1.fillStyle="rgba(251,132,135,0.5)";//red
+	cxt1.strokeStyle="rgba(251,132,135,0.5)";
+	cxt1.linewidth=1;
+	cxt1.fillRect(200,360,300,300);
+	cxt1.fillRect(960,140,400,300);
+	
+	cxt1.fillStyle="rgba(225,254,112,0.5)";//red
+	cxt1.linewidth=1;
+	cxt1.fillRect(450,0,600,600);
+	
+	cxt1.drawImage(up2,550,0,400,600);
+	
+	cxt1.font="bold 300px 書體坊顏體㊣";
+	cxt1.textAlign = "center";
+	cxt1.textBaseline = "middle";
+	cxt1.fillStyle = "#993333";
+	cxt1.fillText('通',220,300);
+	cxt1.fillText('关',1250,300);
+	
+	
+	cxt1.font="bold 100px KyoMadoka";
+	cxt1.textAlign = "center";
+	cxt1.textBaseline = "middle";
+	cxt1.fillStyle = "#993333";
+	cxt1.fillText('おめでとう',250,500);
+	cxt1.fillText('パス',1250,500);
+	time=setTimeout("up2()",500);
+}
+var up2=function(){
+	var up1=document.getElementById("up1");
+	var c1 = document.getElementById("levelup");
+	var cxt1 = c1.getContext("2d");
+	cxt1.clearRect(0,0,1600,600);
+	
+	cxt1.fillStyle="rgba(96,176,249,0.5)";//blue
+	cxt1.strokeStyle="rgba(96,176,249,0.5)";
+	cxt1.linewidth=1;
+	cxt1.fillRect(10,160,460,400);
+	cxt1.fillRect(1000,340,500,200);
+	
+	cxt1.fillStyle="rgba(251,132,135,0.5)";//red
+	cxt1.strokeStyle="rgba(251,132,135,0.5)";
+	cxt1.linewidth=1;
+	cxt1.fillRect(200,360,300,300);
+	cxt1.fillRect(960,140,400,300);
+	
+	cxt1.fillStyle="rgba(225,254,112,0.5)";//red
+	cxt1.linewidth=1;
+	cxt1.fillRect(450,0,600,600);
+	
+	cxt1.drawImage(up1,550,0,400,600);
+	
+	cxt1.font="bold 300px 書體坊顏體㊣";
+	cxt1.textAlign = "center";
+	cxt1.textBaseline = "middle";
+	cxt1.fillStyle = "#993333";
+	cxt1.fillText('通',220,300);
+	cxt1.fillText('关',1250,300);
+	
+	
+	cxt1.font="bold 100px KyoMadoka";
+	cxt1.textAlign = "center";
+	cxt1.textBaseline = "middle";
+	cxt1.fillStyle = "#993333";
+	cxt1.fillText('おめでとう',250,500);
+	cxt1.fillText('パス',1250,500);
+	time=setTimeout("up()",500);
 }
 var levelnext=function(){
 	level++;
@@ -310,3 +492,321 @@ $(document).ready(function () {
 	drawmap();
 	heromove();
 });
+$(document).ready(function() {
+	$("#ch1").animate({
+		left:'270px',
+		top:'20%',
+		opacity:'1',
+		height:'300',
+		width:'300'
+	});	
+	$("#ch2").animate({
+		left:'520px',
+		top:'20%',
+		opacity:'0.5',
+		height:'150px',
+		width:'150px'
+	});
+	$("#ch3").animate({
+		left:'550',
+		top:'20%',
+		opacity:'0',
+		height:'300px',
+		width:'300px'
+	});
+	$("#ch4").animate({
+		left:'550',
+		top:'20%',
+		opacity:'0',
+		height:'300px',
+		width:'300px'
+	});
+});
+
+var cn=1;
+
+$(document).ready(function(){
+	
+ 	$("#p1").click(function(){
+		--cn;
+		switch (cn)
+		{
+	  		case 1:
+    			$("#ch1").animate({
+					left:'270px',
+					top:'20%',
+					opacity:'1',
+					height:'300',
+					width:'300'
+				});
+				$("#ch2").animate({
+					left:'520px',
+					top:'20%',
+					opacity:'0.5',
+					height:'150px',
+					width:'150px'
+				});
+				$("#ch3").animate({
+					left:'600',
+					top:'20%',
+					opacity:'0',
+					height:'150px',
+					width:'150px'
+				});
+				$("#ch4").animate({
+					left:'600',
+					top:'20%',
+					opacity:'0',
+					height:'150px',
+					width:'150px'
+				});
+				break;
+			case 2:
+				$("#ch1").animate({
+					left:'120px',
+					top:'20%',
+					opacity:'0.5',
+					height:'150px',
+					width:'150px'
+				});	
+				$("#ch2").animate({
+					left:'270px',
+					top:'20%',
+					opacity:'1',
+					height:'300',
+					width:'300'
+				});
+				$("#ch3").animate({
+					left:'520px',
+					top:'20%',
+					opacity:'0.5',
+					height:'150px',
+					width:'150px'
+				});
+				$("#ch4").animate({
+					left:'600',
+					top:'20%',
+					opacity:'0',
+					height:'150px',
+					width:'150px'
+				});
+				break;
+			case 3:
+				$("#ch1").animate({
+					left:'0px',
+					top:'20%',
+					opacity:'0',
+					height:'150px',
+					width:'150px'
+				});
+				$("#ch2").animate({
+					left:'120px',
+					top:'20%',
+					opacity:'0.5',
+					height:'150px',
+					width:'150px'
+				});
+				$("#ch3").animate({
+					left:'270px',
+					top:'20%',
+					opacity:'1',
+					height:'300',
+					width:'300'
+				});
+				$("#ch4").animate({
+					left:'520px',
+					top:'20%',
+					opacity:'0.5',
+					height:'150px',
+					width:'150px'
+				});
+				break;
+			case 4:
+				$("#ch1").animate({
+					left:'0px',
+					top:'20%',
+					opacity:'0',
+					height:'150px',
+					width:'150px'
+				});
+				$("#ch2").animate({
+					left:'0px',
+					top:'20%',
+					opacity:'0',
+					height:'150px',
+					width:'150px'
+				});
+				$("#ch3").animate({
+					left:'120px',
+					top:'20%',
+					opacity:'0.5',
+					height:'150px',
+					width:'150px'
+				});
+				$("#ch4").animate({
+					left:'270px',
+					top:'20%',
+					opacity:'1',
+					height:'300',
+					width:'300'
+				});
+				break;
+		}
+  	});
+  
+  $("#p2").click(function(){
+	++cn;
+	switch (cn)
+	{
+	  	case 1:
+    		$("#ch1").animate({
+				left:'270px',
+				top:'20%',
+				opacity:'1',
+				height:'300',
+				width:'300'
+			});
+			$("#ch2").animate({
+				left:'520px',
+				top:'20%',
+				opacity:'0.5',
+				height:'150px',
+				width:'150px'
+			});
+			$("#ch3").animate({
+				left:'600',
+				top:'20%',
+				opacity:'0',
+				height:'150px',
+				width:'1500px'
+			});
+			$("#ch4").animate({
+				left:'600',
+				top:'20%',
+				opacity:'0',
+				height:'150px',
+				width:'150px'
+			});
+			break;
+		case 2:
+			$("#ch1").animate({
+				left:'120px',
+				top:'20%',
+				opacity:'0.5',
+				height:'150px',
+				width:'150px'
+			});
+			$("#ch2").animate({
+				left:'270px',
+				top:'20%',
+				opacity:'1',
+				height:'300',
+				width:'300'
+			});
+			$("#ch3").animate({
+				left:'520px',
+				top:'20%',
+				opacity:'0.5',
+				height:'150px',
+				width:'150px'
+			});
+			$("#ch4").animate({
+				left:'600',
+				top:'20%',
+				opacity:'0',
+				height:'150px',
+				width:'150px'
+			});
+			break;
+		case 3:
+			$("#ch1").animate({
+				left:'0px',
+				top:'20%',
+				opacity:'0',
+				height:'150px',
+				width:'150px'
+			});
+			$("#ch2").animate({
+				left:'120px',
+				top:'20%',
+				opacity:'0.5',
+				height:'150px',
+				width:'150px'
+			});
+			$("#ch3").animate({
+				left:'270px',
+				top:'20%',
+				opacity:'1',
+				height:'300',
+
+				width:'300'
+			});
+			$("#ch4").animate({
+				left:'520px',
+				top:'20%',
+				opacity:'0.5',
+				height:'150px',
+				width:'150px'
+			});
+			break;
+		case 4:
+			$("#ch1").animate({
+				left:'0px',
+				top:'20%',
+				opacity:'0',
+				height:'150px',
+				width:'150px'
+			});
+			$("#ch2").animate({
+				left:'0px',
+				top:'20%',
+				opacity:'0',
+				height:'150px',
+				width:'150px'
+			});
+			$("#ch3").animate({
+				left:'120px',
+				top:'20%',
+				opacity:'0.5',
+				height:'150px',
+				width:'150px'
+			});
+			$("#ch4").animate({
+				left:'270px',
+				top:'20%',
+				opacity:'1',
+				height:'300',
+				width:'300'
+			});
+			break;
+	}
+  });
+});
+
+
+function hidechoice(){
+    document.getElementById("choice").style.display = "none";
+}
+function showchoice(){
+ 	$("#choice").fadeIn(1000);
+}
+$(document).ready(function(){
+	$("#startbox1").click(function(){
+		$("#start").fadeOut(1000,showchoice());
+	});
+	$("#startbox2").click(function(){
+		$("#start").fadeOut(1000,showchoice());
+		twoplay=1;
+	});
+	$("#startbox3").click(function(){
+		$("#start").fadeOut(1000);
+		//读取进度
+	});
+	$("#startbox4").click(function(){
+		$("#instruction").fadeIn(1000);
+	});
+});
+
+function re(){
+	document.getElementById("instruction").style.display = "none";
+}
