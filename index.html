@@ -18,7 +18,10 @@
 			Your browser isn't invited for super fun time.
 	</audio>
 		
-    
+ <div id="gameover">
+<canvas></canvas>
+<p><input type="button" class="anniu" value="重新开始"></p>
+</div>   
     
 <div id="choice" style="display:none">
 	<font style="position:relative;top:50px;left:220px;font-size:150px;font-family:'書體坊顏體㊣';color:#CCC">迷 踪</font>
@@ -50,7 +53,6 @@
     <div id="startbox2" class="startbox">双人模式</div>
     <div id="startbox3" class="startbox">读取进度</div>
     <div id="startbox4" class="startbox">游戏说明</div>
-    <input type="button" class="anniu" value="读取" onClick="read()">
 </div>
 <script>var beepThree = $("#beep-three")[0];
 		$(".startbox").mouseenter(function(){
@@ -68,7 +70,10 @@
 <div id="pause">
 </div>
 
-
+<div id="timerun">
+<p><canvas id="timeset" width="500" height="30" top="50" left="300">
+</canvas> <div id="timeshow"></div>
+</div>
 
 <p><div id="head">Maybe a game?</div></p>
 
@@ -110,7 +115,6 @@
 	<div id="protect2" class="prop">防御力~~~~ 0</div>
 	<div id="money2" class="prop">财富值~~~~ 0</div>
 	<input type="button" class="anniu" value="存档" onClick="save()">
-	<input type="button" class="anniu" value="读取" onClick="read()">
 </div>
 
 </div></p>
@@ -136,6 +140,7 @@
 <img src="death.png" id="tomb" style="display:none;">
 <img src="up1.png" id="up1" style="display:none;">
 <img src="up2.png" id="up2" style="display:none;">
+<img src="time.png" id="time" style="display:none;">
 
 </body>
 </html>

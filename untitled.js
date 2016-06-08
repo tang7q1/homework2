@@ -19,11 +19,13 @@ herotwo={
 }
 key1num=0;
 key2num=0;
-twoplay=1;
+twoplay=0;
 playtwo=0;
 twoturnstatus=1;
 turnstatus=1;
 flag=0;
+mph=0;
+timeflag=0;
 //＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊存储区＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 savestatus={
 	level:1,
@@ -33,6 +35,7 @@ savestatus={
 	playtwo:0,
 	twoturnstatus:1,
 	turnstatus:1,
+	time:0
 
 }
 savehero={
@@ -65,6 +68,7 @@ var save=function()
 	localStorage["savestatus.turnstatus"]=turnstatus;
 	localStorage["savestatus.key2num"]=key2num;
 	localStorage["savemap"]=JSON.stringify(map);
+	localStorage["savestatus.time"]=maxtime;
 	localStorage.flag=1;
 	//localStorage[""]=
 }
@@ -81,10 +85,30 @@ var read=function()
 	key1num=localStorage.getItem("savestatus.key1num");
 	turnstatus=localStorage.getItem("savestatus.turnstatus");
 	twoturnstatus=localStorage.getItem("savestatus.twoturnstatus");
-	heromove();
+	maxtime=localStorage.getItem("savestatus.time");
+	//heromove();
 	changeitems();
 	changekey();
 	changehp();
+}
+//＊＊＊＊＊＊＊＊＊＊＊计时器＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+var timerun=function(){
+	if(maxtime>0){
+	maxtime=maxtime-1;
+	document.getElementById('timeshow').innerHTML=maxtime;
+	drawtimebox();
+	if(timeflag==0)t=setTimeout("timerun()",1000);
+	}
+	else {
+	gameover();
+	}
+}
+var drawtimebox=function(){
+    e=document.getElementById("timeset");
+    ext=e.getContext("2d");
+	ext.clearRect(0,0,500,30);
+	var timepic=document.getElementById("time");
+	ext.drawImage(timepic,0,0,maxtime*500/(40+level*10),30);
 }
 //**********代码区********************
 if(flag==0)changelevel();
@@ -236,7 +260,7 @@ var operation=function(y,x)
 		{
 			hero.x=x;
 			hero.y=y;
-			if(map[y][x]==13)herp.hp+=10;
+			if(map[y][x]==13)hero.hp+=10;
 			if(map[y][x]==14)hero.power+=5;
 			if(map[y][x]==15)hero.protect+=5;
 		}
@@ -244,7 +268,7 @@ var operation=function(y,x)
 		{
 			herotwo.x=x;
 			herotwo.y=y;
-			if(map[y][x]==13)herptwo.hp+=10;
+			if(map[y][x]==13)herotwo.hp+=10;
 			if(map[y][x]==14)herotwo.power+=5;
 			if(map[y][x]==15)herotwo.protect+=5;
 		}
@@ -295,6 +319,7 @@ function gameover(){
 document.getElementById("gameover").style.visibility="visible";
 }
 var showbox=function(){
+	timeflag=1;
 	document.getElementById("nextlevel").style.display = "block";
 	var up1=document.getElementById("up1");
 	var c1 = document.getElementById("levelup");
@@ -421,6 +446,7 @@ var levelnext=function(){
 	document.getElementById("nextlevel").style.visibility="hidden";
 	changelevel();
 	heromove();
+	timerun();
 }
 var goleft=function(){
 	if(playtwo==1){
@@ -488,10 +514,6 @@ var heromove=function(){
 	if(twoturnstatus==4)cxt.drawImage(heropic24,herotwo.x*60,herotwo.y*60,60,60);
 	}
 } 
-$(document).ready(function () { 
-	drawmap();
-	heromove();
-});
 $(document).ready(function() {
 	$("#ch1").animate({
 		left:'270px',
@@ -786,20 +808,31 @@ $(document).ready(function(){
 
 function hidechoice(){
     document.getElementById("choice").style.display = "none";
+    timerun();
 }
 function showchoice(){
  	$("#choice").fadeIn(1000);
+
 }
 $(document).ready(function(){
 	$("#startbox1").click(function(){
 		$("#start").fadeOut(1000,showchoice());
+		drawmap();
+	heromove();
 	});
 	$("#startbox2").click(function(){
 		$("#start").fadeOut(1000,showchoice());
 		twoplay=1;
+		drawmap();
+	heromove();
 	});
 	$("#startbox3").click(function(){
+
 		$("#start").fadeOut(1000);
+		read();
+		timerun();
+		drawmap();
+		heromove();
 		//读取进度
 	});
 	$("#startbox4").click(function(){

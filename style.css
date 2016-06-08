@@ -21,7 +21,16 @@
 .leftbox{
 	box-shadow:5px 5px 5px #333;
 }
+#gameover{
+	position:absolute;
+	top:15%;
+	left:400px;	
+	width:400px;
+	height:400px;
+	visibility:hidden;
+	z-index:5556; 
 
+}
 #showlevel{
 	text-align:center;
 	width:160px;
@@ -304,7 +313,7 @@ input[type="button"] {
 	left:740px;	
 	width:150px;
 	height:30px;
-	z-index:6666;
+	z-index:6667;
 	line-height:27px;
 	cursor:pointer;
 }

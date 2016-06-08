@@ -1,7 +1,10 @@
 var map=new Array();
+var maxtime=0;
 function changelevel(){
+	timeflag=0;
 	if(level==1)
 	{
+		maxtime=40;
 		for(i=0;i<10;++i)
 		{
 			map[i]=new Array();
@@ -36,10 +39,11 @@ function changelevel(){
 		map[7][1]=map[5][2]=map[3][5]=map[5][8]=8;//key1
 		map[1][8]=map[8][8]=9;//key2
 		
-		map[1][1]=map[7][2]=10;
+		map[1][1]=10;
 	}
 	else if(level==2)
 	{
+		maxtime=50;
 		for(i=0;i<10;++i)
 		{
 			map[i]=new Array();
@@ -85,6 +89,7 @@ function changelevel(){
 		map[8][1]=18;	
 	}
 	else if(level==3){
+		maxtime=60;
 		for(i=0;i<10;++i)
 		{
 			map[i]=new Array();
