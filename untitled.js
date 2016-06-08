@@ -1,5 +1,5 @@
 //********定义区******************
-level=1;
+level=4;
 hero={
 	x:2,
 	y:8,
@@ -112,8 +112,7 @@ var drawtimebox=function(){
 }
 //**********代码区********************
 if(flag==0)changelevel();
-var twoplayers=function()
-{
+var twoplayers=function(){
 twoplay=1;
 }
 //＊＊＊＊＊键盘事件＊＊＊＊＊＊＊＊
@@ -159,7 +158,19 @@ var drawmap=function(){
 			if(map[i][j]==10)cxt.drawImage(flag, j*60,i*60,60,60);
 			if(map[i][j]==13)cxt.drawImage(tomb, j*60,i*60,60,60);
 			if(map[i][j]==15)cxt.drawImage(dooropen, j*60,i*60,60,60);
+	if(level==4||level==5)for(i=0;i<12;i++)
+  		for(j=0;j<12;j++){
+  			if(map[i][j]==1)cxt.drawImage(door1, j*50,i*50,50,50);
+			if(map[i][j]==2)cxt.drawImage(door2, j*50,i*50,50,50);
+			if(map[i][j]==3)cxt.drawImage(wallpic, j*50,i*50,50,50);
+			if(map[i][j]==11)cxt.drawImage(monster1pic, j*50,i*50,50,50);
+			if(map[i][j]==8)cxt.drawImage(key1pic, j*50,i*50,50,50);
+			if(map[i][j]==9)cxt.drawImage(key2pic, j*50,i*50,50,50);
+			if(map[i][j]==10)cxt.drawImage(flag,j*50,i*50,50,50);
+			if(map[i][j]==13)cxt.drawImage(tomb, j*50,i*50,50,50);
+			if(map[i][j]==15)cxt.drawImage(dooropen, j*50,i*50,50,50);
 	}
+}
 }
 
 var pickkey=function(y,x){
@@ -499,21 +510,31 @@ var heromove=function(){
 	var heropic2=document.getElementById("heropic2");
 	var heropic3=document.getElementById("heropic3");
 	var heropic4=document.getElementById("heropic4");
+	var heropic21=document.getElementById("heropic21");
+	var heropic22=document.getElementById("heropic22");
+	var heropic23=document.getElementById("heropic23");
+	var heropic24=document.getElementById("heropic24");
+	if(level>=1&&level<=3){
 	if(turnstatus==1)cxt.drawImage(heropic1,hero.x*60,hero.y*60,60,60);
 	if(turnstatus==2)cxt.drawImage(heropic2,hero.x*60,hero.y*60,60,60);
 	if(turnstatus==3)cxt.drawImage(heropic3,hero.x*60,hero.y*60,60,60);
 	if(turnstatus==4)cxt.drawImage(heropic4,hero.x*60,hero.y*60,60,60);
 	if(twoplay==1){
-	var heropic21=document.getElementById("heropic21");
-	var heropic22=document.getElementById("heropic22");
-	var heropic23=document.getElementById("heropic23");
-	var heropic24=document.getElementById("heropic24");
 	if(twoturnstatus==1)cxt.drawImage(heropic21,herotwo.x*60,herotwo.y*60,60,60);
 	if(twoturnstatus==2)cxt.drawImage(heropic22,herotwo.x*60,herotwo.y*60,60,60);
 	if(twoturnstatus==3)cxt.drawImage(heropic23,herotwo.x*60,herotwo.y*60,60,60);
-	if(twoturnstatus==4)cxt.drawImage(heropic24,herotwo.x*60,herotwo.y*60,60,60);
+	if(twoturnstatus==4)cxt.drawImage(heropic24,herotwo.x*60,herotwo.y*60,60,60);}}
+	if(level==4||level==5){
+	if(turnstatus==1)cxt.drawImage(heropic1,hero.x*50,hero.y*50,50,50);
+	if(turnstatus==2)cxt.drawImage(heropic2,hero.x*50,hero.y*50,50,50);
+	if(turnstatus==3)cxt.drawImage(heropic3,hero.x*50,hero.y*50,50,50);
+	if(turnstatus==4)cxt.drawImage(heropic4,hero.x*50,hero.y*50,50,50);
+	if(twoplay==1){
+	if(twoturnstatus==1)cxt.drawImage(heropic21,herotwo.x*50,herotwo.y*50,50,50);
+	if(twoturnstatus==2)cxt.drawImage(heropic22,herotwo.x*50,herotwo.y*50,50,50);
+	if(twoturnstatus==3)cxt.drawImage(heropic23,herotwo.x*50,herotwo.y*50,50,50);
+	if(twoturnstatus==4)cxt.drawImage(heropic24,herotwo.x*50,herotwo.y*50,50,50);}}
 	}
-} 
 $(document).ready(function() {
 	$("#ch1").animate({
 		left:'270px',
