@@ -9,19 +9,16 @@
 		<title>这是一个游戏【正经脸】</title>
 	</head>
 <body>
-    <audio controls="controls" autoplay="autoplay" style="display:none">
-  		<source src="bgs.mp3" type="audio/mp3" />
-                    Your browser does not support the audio element.
-	</audio>	
+    <audio controls autoplay="autoplay" style="display:none" loop>
+		<source src="bgs.mp3" type="audio/mp3" />
+            Your browser does not support the audio element.
+    </audio>
 	<audio id="beep-three" controls preload="auto" style="display:none">
 		<source src="click1.wav" controls></source>
 			Your browser isn't invited for super fun time.
 	</audio>
 		
- <div id="gameover">
-<canvas></canvas>
-<p><input type="button" class="anniu" value="重新开始"></p>
-</div>   
+    
     
 <div id="choice" style="display:none">
 	<font style="position:relative;top:50px;left:220px;font-size:150px;font-family:'書體坊顏體㊣';color:#CCC">迷 踪</font>
@@ -37,8 +34,9 @@
 	
 </div>
 
+  
 <div id="start">
-	<div id="instruction" style="display:none;scrollbar-face-color: #DB52BC">
+	<div id="instruction" style="display:none">
 	<p>这是一个游戏【正经脸】，方法嘛，上下左右英雄一，wasd英雄二，打怪刷级，不说了开始吧。</p>
     我觉得还需要一些故事背景。比如。。<p>经过n次符文战争，光盾家族分裂，一脉成了诺克
     斯的主人，好战嗜血。一脉成了德玛西亚的主人，爱好和平。传承下来慢慢两边成为世仇。祖安诺			克萨斯同盟，德邦班德尔同盟。</p>
@@ -47,8 +45,8 @@
 哈哈哈哈好吧上面我copy的LOL的背景。</p>
 <p>开始征程吧，勇士。</p>
     <input type="button" id="sure2" class="anniu" value="确定" onClick="re()">
-    </div>
-	<font id="title" style="position:relative;top:50px;left:220px;font-size:150px;font-family:'書體坊顏體㊣'">迷 踪</font>
+    </div> 
+	<font id="title" style="position:relative;top:70px;left:310px;font-size:250px;font-family:'書體坊顏體㊣'">迷 踪</font>
 	<div id="startbox1" class="startbox">单人模式</div>
     <div id="startbox2" class="startbox">双人模式</div>
     <div id="startbox3" class="startbox">读取进度</div>
@@ -63,7 +61,7 @@
     <canvas id="levelup" width="1600" height="600" style="width:800px;height:300px;">Your browser does not support the canvas element.</canvas>
 	<p id="buttonp" style="text-align:center">
 	<input type="button" class="anniu" value="下一关" onClick="levelnext()">
-	<input type="button" class="anniu" value="存档" >
+	<input type="button" class="anniu" value="存档">
 	<input type="button" class="anniu" value="退出">
 	</p>
 </div>
@@ -114,16 +112,19 @@
 	<div id="power2" class="prop">攻击力~~~~ 0</div>
 	<div id="protect2" class="prop">防御力~~~~ 0</div>
 	<div id="money2" class="prop">财富值~~~~ 0</div>
-	<input type="button" class="anniu" value="存档" onClick="save()">
+	</br>
+	</br>
+    <input type="button" class="anniu" value="存档" onClick="save()">
 </div>
 
 </div></p>
 </div>
 
 <img src="floorpic.jpg" id="floorpic" style="display:none;"><!--0-->
-<img src="door1.jpg" id="door1" style="display:none;"> <!--1-->
-<img src="door2.jpg" id="door2" style="display:none;"> <!--2-->
-<img src="dooropen.jpg" id="dooropen" style="display:none;">
+<img src="door1.png" id="door1" style="display:none;"> <!--1-->
+<img src="door2.png" id="door2" style="display:none;"> <!--2-->
+<img src="dooropen1.png" id="dooropen1" style="display:none;">
+<img src="dooropen2.png" id="dooropen2" style="display:none;">
 <img src="wallpic.png" id="wallpic" style="display:none;"> <!--3-->
 <img src="heropic1.png" id="heropic1" style="display:none;">
 <img src="heropic2.png" id="heropic2" style="display:none;">
@@ -140,7 +141,16 @@
 <img src="death.png" id="tomb" style="display:none;">
 <img src="up1.png" id="up1" style="display:none;">
 <img src="up2.png" id="up2" style="display:none;">
+<img src="money1.png" id="m1" style="display:none;">
+<img src="money2.png" id="m2" style="display:none;">
+<img src="hp.png" id="_hp" style="display:none;">
+<img src="pow.png" id="_pow" style="display:none;">
+<img src="pro.png" id="_pro" style="display:none;">
 <img src="time.png" id="time" style="display:none;">
+
+<div id="canvasContainer"></div>
+<span id="textInputSpan"></span>
+<script src="js/index.js"></script>
 
 </body>
 </html>

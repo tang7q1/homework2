@@ -1,10 +1,12 @@
 ﻿w@charset "utf-8";
 /* CSS Document */
 #map{
-	position:absolute;
-	margin-bottom:10px;
-	margin-top:20px;
-	width:100%;
+	position: absolute;
+	margin-bottom: 10px;
+	margin-top: 20px;
+	width: 100%;
+	left: 498px;
+	top: 147px;
 }
 
 #leftmap{
@@ -21,16 +23,7 @@
 .leftbox{
 	box-shadow:5px 5px 5px #333;
 }
-#gameover{
-	position:absolute;
-	top:15%;
-	left:400px;	
-	width:400px;
-	height:400px;
-	visibility:hidden;
-	z-index:5556; 
 
-}
 #showlevel{
 	text-align:center;
 	width:160px;
@@ -169,19 +162,20 @@
 }
 
 input[type="button"] {
-    background: #993333;
+    background: #856363;
 	border-radius: 200px;
     border: none;
     padding: 5px 5px;
     color: white;
     font-size: 20px;
-	height:70px;
+	height:60px;
 	width:70px;
 	text-align:center;
 	font-family:"方正启体简体";
 	line-height:60px;
 	cursor:pointer;
 }
+.anniu:hover {background: #e9c2a6}
 #nextlevel{
 	position:absolute;
 	top:15%;
@@ -256,10 +250,10 @@ input[type="button"] {
 
 #start{
 	position:absolute;
-	top:15%;
-	left:270px;	
-	width:800px;
-	height:450px;
+	top:0%;
+	left:70px;	
+	width:1200px;
+	height:800px;
 	z-index:5555;
 	background-image:url(start.jpg);
 	background-size:cover;
@@ -270,7 +264,7 @@ input[type="button"] {
 	text-align:center;
 	width:120px;
 	height:40px;
-	left:340px;
+	left:547px;
 	line-height:40px;
 	font-size:30px;
 	font-family:"書體坊顏體㊣";
@@ -313,7 +307,25 @@ input[type="button"] {
 	left:740px;	
 	width:150px;
 	height:30px;
-	z-index:6667;
+	z-index:6666;
 	line-height:27px;
 	cursor:pointer;
+}
+
+#canvasContainer{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:6666;
+}
+
+#textInputSpan{
+  position: absolute;
+  top:0;
+  height:300px;
+  width:500px;
+  color: #FFFFFF;
+  font-family:"幼圆";
 }

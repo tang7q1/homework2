@@ -1,5 +1,5 @@
 //********定义区******************
-level=4;
+level=1;
 hero={
 	x:2,
 	y:8,
@@ -137,17 +137,23 @@ var drawmap=function(){
 	var wallpic=document.getElementById("wallpic");
 	var door1=document.getElementById("door1");
 	var door2=document.getElementById("door2");
-	var dooropen=document.getElementById("dooropen");
+	var dooropen1=document.getElementById("dooropen1");
+	var dooropen2=document.getElementById("dooropen2");
 	var monster1pic=document.getElementById("monster1pic");
 	var key1pic=document.getElementById("key1");
 	var key2pic=document.getElementById("key2");
 	var flag=document.getElementById("flag");
 	var tomb=document.getElementById("tomb");
+	var m1=document.getElementById("m1");
+	var m2=document.getElementById("m2");
+	var _hp=document.getElementById("_hp");
+	var _pro=document.getElementById("_pro");
+	var _pow=document.getElementById("_pow");
 	for(i=0;i<10;i++)
   		for(j=0;j<10;j++){
   			cxt.drawImage(floorpic,i*60,j*60,60,60);
   	}
-	for(i=0;i<10;i++)
+	if(level>=1&&level<=3)for(i=0;i<10;i++)
   		for(j=0;j<10;j++){
   			if(map[i][j]==1)cxt.drawImage(door1, j*60,i*60,60,60);
 			if(map[i][j]==2)cxt.drawImage(door2, j*60,i*60,60,60);
@@ -157,7 +163,13 @@ var drawmap=function(){
 			if(map[i][j]==9)cxt.drawImage(key2pic, j*60,i*60,60,60);
 			if(map[i][j]==10)cxt.drawImage(flag, j*60,i*60,60,60);
 			if(map[i][j]==13)cxt.drawImage(tomb, j*60,i*60,60,60);
-			if(map[i][j]==15)cxt.drawImage(dooropen, j*60,i*60,60,60);
+			if(map[i][j]==14)cxt.drawImage(dooropen1, j*60,i*60,60,60);
+			if(map[i][j]==15)cxt.drawImage(dooropen2, j*60,i*60,60,60);
+			if(map[i][j]==19)cxt.drawImage(m1, j*60,i*60,60,60);
+			if(map[i][j]==20)cxt.drawImage(m2, j*60,i*60,60,60);
+			if(map[i][j]==16)cxt.drawImage(_hp, j*60,i*60,60,60);
+			if(map[i][j]==17)cxt.drawImage(_pow, j*60,i*60,60,60);
+			if(map[i][j]==18)cxt.drawImage(_pro, j*60,i*60,60,60);}
 	if(level==4||level==5)for(i=0;i<12;i++)
   		for(j=0;j<12;j++){
   			if(map[i][j]==1)cxt.drawImage(door1, j*50,i*50,50,50);
@@ -166,12 +178,18 @@ var drawmap=function(){
 			if(map[i][j]==11)cxt.drawImage(monster1pic, j*50,i*50,50,50);
 			if(map[i][j]==8)cxt.drawImage(key1pic, j*50,i*50,50,50);
 			if(map[i][j]==9)cxt.drawImage(key2pic, j*50,i*50,50,50);
-			if(map[i][j]==10)cxt.drawImage(flag,j*50,i*50,50,50);
+			if(map[i][j]==10)cxt.drawImage(flag, j*50,i*50,50,50);
 			if(map[i][j]==13)cxt.drawImage(tomb, j*50,i*50,50,50);
-			if(map[i][j]==15)cxt.drawImage(dooropen, j*50,i*50,50,50);
+			if(map[i][j]==14)cxt.drawImage(dooropen1, j*50,i*50,50,50);
+			if(map[i][j]==15)cxt.drawImage(dooropen2, j*50,i*50,50,50);
+			if(map[i][j]==19)cxt.drawImage(m1, j*50,i*50,50,50);
+			if(map[i][j]==20)cxt.drawImage(m2, j*50,i*50,50,50);
+			if(map[i][j]==16)cxt.drawImage(_hp, j*50,i*50,50,50);
+			if(map[i][j]==17)cxt.drawImage(_pow, j*50,i*50,50,50);
+			if(map[i][j]==18)cxt.drawImage(_pro, j*50,i*50,50,50);
 	}
 }
-}
+
 
 var pickkey=function(y,x){
 	if(map[y][x]==8)key1num++;
@@ -222,8 +240,8 @@ var operation=function(y,x)
 	}//开门
 	else if(map[y][x]==11||map[y][x]==12){
 		var attacks;
-		if(map[y][x]==11)mph=20;
-		else if(map[y][x]==12)mph=25;
+		if(map[y][x]==11)mph=50;
+		else if(map[y][x]==12)mph=55;
 		if(playtwo==1){
 		if(5+Math.floor(hero.power*0.5)<=20){
 			attacks=Math.ceil(mph/(5+Math.floor(hero.power*0.5)));
@@ -305,6 +323,14 @@ var operation=function(y,x)
 		if(twoplay==0){
 		if(map[hero.y][hero.x]==10)showbox();}
 	}//过关
+	else if(map[y][x]==16||map[y][x]==17||map[y][x]==18)
+	{	
+		py=y;
+		px=x;
+		map[y][x]=0;
+		heromove();
+		changeitems();
+	}//属性
 }
 function changekey(){
 	document.getElementById("keybg1").innerHTML=key1num;
@@ -327,7 +353,11 @@ function changeitems(){
 }
 
 function gameover(){
-document.getElementById("gameover").style.visibility="visible";
+	$("#canvasContainer").fadeIn(1500);
+	$("#textInputSpan").fadeIn(1500);
+	$("#canvasContainer").fadeOut(2000);
+	$("#textInputSpan").fadeOut(2000);
+	$("#start").fadeIn(1500);
 }
 var showbox=function(){
 	timeflag=1;
@@ -535,6 +565,12 @@ var heromove=function(){
 	if(twoturnstatus==3)cxt.drawImage(heropic23,herotwo.x*50,herotwo.y*50,50,50);
 	if(twoturnstatus==4)cxt.drawImage(heropic24,herotwo.x*50,herotwo.y*50,50,50);}}
 	}
+$(document).ready(function () { 
+	$("#canvasContainer").fadeOut(100);
+	$("#textInputSpan").fadeOut(100);	
+	drawmap();
+	heromove();
+});
 $(document).ready(function() {
 	$("#ch1").animate({
 		left:'270px',
