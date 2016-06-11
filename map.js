@@ -70,7 +70,7 @@ function changelevel(){
 
 		map[1][4]=map[3][1]=map[3][7]=map[8][5]=11;
 
-		map[1][8]=10;map[8][7]=10;
+	map[1][8]=10;
 
 		map[2][6]=map[6][7]=1;	
 
@@ -170,5 +170,47 @@ function changelevel(){
 		map[1][10]=map[3][2]=map[3][7]=map[5][3]=map[5][6]=map[6][2]=map[6][5]=map[10][1]=map[10][10]=11;
 		map[10][6]=10;
 	}
-	else if(level==5){}
+	else if(level==5){
+		maxtime=70;
+		hero.x=1;
+		hero.y=1;
+		for(i=0;i<12;++i)
+		{
+			map[i]=new Array();
+			for(j=0;j<12;++j)
+			{
+				map[i][j]=0;
+			}
+		}//chushihua
+		
+		for(j=0;j<12;++j)
+		{
+			map[0][j]=3;
+			map[11][j]=3;
+		}
+
+		for(i=0;i<12;++i)
+		{
+			map[i][0]=3;
+			map[i][11]=3;
+		}
+		map[1][6]=map[2][5]=map[4][8]=map[6][6]=map[10][5]=map[8][6]=1;
+		map[9][1]=map[8][10]=map[10][7]=map[5][5]=2;
+		map[1][3]=map[3][10]=map[1][10]=map[3][1]=map[5][1]=map[5][10]=map[7][7]=map[9][3]=map[9][9]=map[10][4]=map[10][8]=11;
+		map[9][2]=map[10][10]=12;
+		map[1][4]=map[4][1]=map[6][2]=map[10][9]=map[7][8]=8;
+		map[10][1]=map[7][9]=map[3][7]=9;
+		map[5][6]=10;
+		map[2][1]=map[2][2]=map[2][3]=map[2][4]=map[2][6]=map[2][7]=map[2][8]=map[2][9]=map[3][6]=3;
+		map[4][2]=map[4][3]=map[4][4]=map[4][5]=map[4][6]=map[4][7]=map[4][2]=map[4][9]=map[4][10]=3;
+		map[5][3]=map[5][7]=3;
+		map[6][3]=map[6][5]=map[6][7]=map[6][8]=map[6][9]=3;
+		map[7][3]=map[7][9]=3;
+		map[8][3]=map[8][4]=map[8][5]=map[8][7]=map[8][8]=map[8][9]=3;
+		map[9][5]=map[9][7]=3;
+		map[9][4]=19;
+		map[3][9]=16;
+		map[7][2]=17;
+		map[3][3]=18;
+	}
 }

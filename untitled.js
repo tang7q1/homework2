@@ -1,5 +1,5 @@
 //********定义区******************
-level=1;
+level=5;
 hero={
 	x:2,
 	y:8,
@@ -86,6 +86,7 @@ var read=function()
 	turnstatus=localStorage.getItem("savestatus.turnstatus");
 	twoturnstatus=localStorage.getItem("savestatus.twoturnstatus");
 	maxtime=localStorage.getItem("savestatus.time");
+	//if(map[hero.y][hero.x]==10)level=level-1;
 	//heromove();
 	changeitems();
 	changekey();
@@ -140,6 +141,7 @@ var drawmap=function(){
 	var dooropen1=document.getElementById("dooropen1");
 	var dooropen2=document.getElementById("dooropen2");
 	var monster1pic=document.getElementById("monster1pic");
+	var monster2pic=document.getElementById("monster2pic");
 	var key1pic=document.getElementById("key1");
 	var key2pic=document.getElementById("key2");
 	var flag=document.getElementById("flag");
@@ -159,6 +161,7 @@ var drawmap=function(){
 			if(map[i][j]==2)cxt.drawImage(door2, j*60,i*60,60,60);
 			if(map[i][j]==3)cxt.drawImage(wallpic, j*60,i*60,60,60);
 			if(map[i][j]==11)cxt.drawImage(monster1pic, j*60,i*60,60,60);
+			if(map[i][j]==12)cxt.drawImage(monster2pic, j*60,i*60,60,60);
 			if(map[i][j]==8)cxt.drawImage(key1pic, j*60,i*60,60,60);
 			if(map[i][j]==9)cxt.drawImage(key2pic, j*60,i*60,60,60);
 			if(map[i][j]==10)cxt.drawImage(flag, j*60,i*60,60,60);
@@ -176,6 +179,7 @@ var drawmap=function(){
 			if(map[i][j]==2)cxt.drawImage(door2, j*50,i*50,50,50);
 			if(map[i][j]==3)cxt.drawImage(wallpic, j*50,i*50,50,50);
 			if(map[i][j]==11)cxt.drawImage(monster1pic, j*50,i*50,50,50);
+			if(map[i][j]==12)cxt.drawImage(monster2pic, j*50,i*50,50,50);
 			if(map[i][j]==8)cxt.drawImage(key1pic, j*50,i*50,50,50);
 			if(map[i][j]==9)cxt.drawImage(key2pic, j*50,i*50,50,50);
 			if(map[i][j]==10)cxt.drawImage(flag, j*50,i*50,50,50);
@@ -240,8 +244,8 @@ var operation=function(y,x)
 	}//开门
 	else if(map[y][x]==11||map[y][x]==12){
 		var attacks;
-		if(map[y][x]==11)mph=50;
-		else if(map[y][x]==12)mph=55;
+		if(map[y][x]==11)mph=50+5*level;
+		else if(map[y][x]==12)mph=550+5*level;
 		if(playtwo==1){
 		if(5+Math.floor(hero.power*0.5)<=20){
 			attacks=Math.ceil(mph/(5+Math.floor(hero.power*0.5)));
@@ -323,8 +327,32 @@ var operation=function(y,x)
 		if(twoplay==0){
 		if(map[hero.y][hero.x]==10)showbox();}
 	}//过关
+	else if(map[y][x]==19)
+	{	
+		py=y;
+		px=x;
+		map[y][x]=20;
+		heromove();
+		time=setTimeout("changeitems()",800);
+	}//money
 	else if(map[y][x]==16||map[y][x]==17||map[y][x]==18)
 	{	
+		if(playtwo==1)
+		{
+			hero.x=x;
+			hero.y=y;
+			if(map[y][x]==16)hero.hp+=10;
+			if(map[y][x]==17)hero.power+=5;
+			if(map[y][x]==18)hero.protect+=5;
+		}
+		if(playtwo==2)
+		{
+			herotwo.x=x;
+			herotwo.y=y;
+			if(map[y][x]==16)herotwo.hp+=10;
+			if(map[y][x]==17)herotwo.power+=5;
+			if(map[y][x]==18)herotwo.protect+=5;
+		}
 		py=y;
 		px=x;
 		map[y][x]=0;
@@ -361,6 +389,7 @@ function gameover(){
 }
 var showbox=function(){
 	timeflag=1;
+
 	document.getElementById("nextlevel").style.display = "block";
 	var up1=document.getElementById("up1");
 	var c1 = document.getElementById("levelup");
@@ -400,6 +429,7 @@ var showbox=function(){
 	cxt1.fillText('おめでとう',250,500);
 	cxt1.fillText('パス',1250,500);
 	time=setTimeout("up()",500);
+	alert('str');
 }
 var up=function(){
 	var up2=document.getElementById("up2");
